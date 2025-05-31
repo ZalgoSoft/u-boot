@@ -34,6 +34,10 @@ else
 obj-$(CONFIG_CIRCBUF) += circbuf.o
 endif
 
+ifdef CONFIG_TEGRA_NVEC
+obj-y += circbuf.o
+endif
+
 obj-y += crc8.o
 obj-$(CONFIG_ERRNO_STR) += errno_str.o
 obj-$(CONFIG_FIT) += fdtdec_common.o
