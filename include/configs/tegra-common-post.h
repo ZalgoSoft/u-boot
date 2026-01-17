@@ -15,6 +15,12 @@
 #define STDIN_KBD_KBC ""
 #endif
 
+#ifdef CONFIG_TEGRA_NVEC_KEYBOARD
+#define STDIN_KBD_NVEC_KBC ",tegra-nvec-kbc"
+#else
+#define STDIN_KBD_NVEC_KBC ""
+#endif
+
 #ifdef CONFIG_USB_KEYBOARD
 #define STDIN_KBD_USB ",usbkbd"
 #else
@@ -40,7 +46,7 @@
 #endif
 
 #define TEGRA_DEVICE_SETTINGS \
-	"stdin=serial" STDIN_KBD_KBC STDIN_KBD_USB STDOUT_CROS_EC STDIN_BTN_KBD "\0" \
+	"stdin=serial" STDIN_KBD_KBC STDIN_KBD_NVEC_KBC STDIN_KBD_USB STDOUT_CROS_EC STDIN_BTN_KBD "\0" \
 	"stdout=serial" STDOUT_VIDEO "\0" \
 	"stderr=serial" STDOUT_VIDEO "\0" \
 	""
