@@ -56,7 +56,7 @@ DECLARE_GLOBAL_DATA_PTR;
 /* Nvec perfroms io interval is beteween 20 and 500 ms,
 no response in 600 ms means error */
 enum {
-	NVEC_TIMEOUT_MIN = 20,
+	NVEC_TIMEOUT_MIN = 5,
 	NVEC_TIMEOUT_MAX = 600,
 };
 enum {
@@ -219,7 +219,7 @@ int nvec_do_io(struct nvec_t *nvec, int wait_for_ec)
 	if (!nvec_data)
 		return nvec_io_not_ready;
 
-	poll_start_ms = get_timer(0);
+	poll_start_ms = timer_get_us() / 1000;
 	udelay(1000 * NVEC_TIMEOUT_MIN);
 
 	while (1) {
@@ -406,7 +406,7 @@ static void nvec_init_i2c_slave(struct nvec_t *nvec)
 
 	/* i2c3 -> 67 */
 	clock_start_periph_pll(67, CLOCK_ID_PERIPH,
-			       nvec->i2c_clk * 8);
+			       nvec->i2c_clk * 16);
 
 	reset_periph(67, 1);
 
