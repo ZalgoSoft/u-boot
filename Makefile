@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0+
 
 VERSION = 2026
-PATCHLEVEL = 04
+PATCHLEVEL = 07
 SUBLEVEL =
-EXTRAVERSION =
+EXTRAVERSION = -rc3
 NAME =
 
 # *DOCUMENTATION*
@@ -1081,7 +1081,7 @@ libs-$(CONFIG_OF_EMBED) += dts/
 libs-y += env/
 libs-y += lib/
 libs-y += fs/
-libs-$(filter y,$(CONFIG_NET) $(CONFIG_NET_LWIP)) += net/
+libs-$(CONFIG_NET) += net/
 libs-y += disk/
 libs-y += drivers/
 libs-$(CONFIG_SYS_FSL_DDR) += drivers/ddr/fsl/
@@ -1373,7 +1373,7 @@ expect = $(foreach cfg,$(1),y)
 # 1: List of options to migrate to (e.g. "CONFIG_DM_MMC CONFIG_BLK")
 # 2: Name of component (e.g . "Ethernet drivers")
 # 3: Release deadline (e.g. "v202.07")
-# 4: Condition to require before checking (e.g. "$(CONFIG_NET)")
+# 4: Condition to require before checking (e.g. "$(CONFIG_NET_LEGACY)")
 # Note: Script avoids bash construct, hence the strange double 'if'
 # (patches welcome!)
 define deprecated
@@ -1578,6 +1578,9 @@ spl/u-boot-spl.srec: spl/u-boot-spl FORCE
 %.scif: %.srec
 	$(Q)$(MAKE) $(build)=arch/arm/mach-renesas $@
 
+%.shdr: %.srec
+	$(Q)$(MAKE) $(build)=arch/arm/mach-renesas $@
+
 OBJCOPYFLAGS_u-boot-nodtb.bin := -O binary \
 		$(if $(CONFIG_X86_16BIT_INIT),-R .start16 -R .resetvec) \
 		$(if $(CONFIG_MPC85XX_HAVE_RESET_VECTOR),$(if $(CONFIG_OF_SEPARATE),-R .bootpg -R .resetvec))
@@ -1682,7 +1685,7 @@ cmd_binman = $(srctree)/tools/binman/binman $(if $(BINMAN_DEBUG),-D) \
 		build -u -d $(binman_dtb) -O . -m \
 		--allow-missing --fake-ext-blobs \
 		$(if $(BINMAN_ALLOW_MISSING),--ignore-missing) \
-		-I . -I $(srctree) -I $(srctree)/board/$(BOARDDIR) \
+		-I . -I $(srctree)/board/$(BOARDDIR) -I $(srctree) \
 		$(foreach f,$(of_list_dirs),-I $(f)) -a of-list=$(of_list) \
 		$(foreach f,$(BINMAN_INDIRS),-I $(f)) \
 		-a atf-bl1-path=${BL1} \

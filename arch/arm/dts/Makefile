@@ -32,13 +32,6 @@ dtb-$(CONFIG_TARGET_A5Y17LTE) += exynos78x0-axy17lte.dtb
 dtb-$(CONFIG_TARGET_A3Y17LTE) += exynos78x0-axy17lte.dtb
 dtb-$(CONFIG_TARGET_A7Y17LTE) += exynos78x0-axy17lte.dtb
 
-dtb-$(CONFIG_ARCH_APPLE) += \
-	t8103-j274.dtb \
-	t8103-j293.dtb \
-	t8103-j313.dtb \
-	t8103-j456.dtb \
-	t8103-j457.dtb
-
 dtb-$(CONFIG_ARCH_DAVINCI) += \
 	da850-lcdk.dtb \
 	da850-lego-ev3.dtb
@@ -907,11 +900,7 @@ dtb-$(CONFIG_RZA1) += \
 	r7s72100-gr-peach.dtb
 
 dtb-$(CONFIG_RCAR_GEN5) += \
-	r8a78000-ironhide.dtb
-
-ifdef CONFIG_RCAR_GEN5
-DTC_FLAGS += -R 4 -p 0x1000
-endif
+	r8a78000-ironhide-cm33.dtb
 
 dtb-$(CONFIG_TARGET_AT91SAM9261EK) += at91sam9261ek.dtb
 
@@ -1079,8 +1068,7 @@ dtb-$(CONFIG_SOC_K3_J7200) += k3-j7200-r5-common-proc-board.dtb
 dtb-$(CONFIG_SOC_K3_J721S2) += k3-am68-sk-r5-base-board.dtb\
 			       k3-j721s2-r5-common-proc-board.dtb
 
-dtb-$(CONFIG_SOC_K3_J784S4) += k3-am69-aquila-dev.dtb \
-			       k3-am69-r5-aquila-dev.dtb \
+dtb-$(CONFIG_SOC_K3_J784S4) += k3-am69-r5-aquila-dev.dtb \
 			       k3-am69-r5-sk.dtb \
 			       k3-j784s4-r5-evm.dtb
 
