@@ -535,6 +535,23 @@ config BOOTSTD_MENU
 	help
 	  Provide a menu of available bootflows and related options.
 
+config BOOTFLOW_MENU_SCREEN_WIDTH
+	int "Width screen dimension for Bootflow Menu. Prefer native display pixel width."
+	depends on BOOTSTD_MENU
+	default 0
+	help
+	  Prefer native display pixel width for correct menu rendering.
+	  Used in bootflow_menu.c, not affects to any other kind of menus.
+
+config BOOTFLOW_MENU_SCREEN_HEIGHT
+        int "Height screen dimension for Bootflow Menu. Prefer native display pixel height."
+        depends on BOOTSTD_MENU
+        default 0
+        help
+	  Prefer native display pixel height for correct menu rendering.
+	  Used in bootflow_menu.c, not affects to any other kind of menus.
+
+
 config BOOTSTD_PROG
 	bool "Use programmatic boot"
 	depends on !CMDLINE
@@ -1981,6 +1998,7 @@ config BOOTCOMMAND
 	help
 	  This is the string of commands that will be used as bootcmd and if
 	  AUTOBOOT is set, automatically run.
+
 
 config USE_PREBOOT
 	bool "Enable preboot"
