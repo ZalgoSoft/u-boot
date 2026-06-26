@@ -23,6 +23,39 @@
 		mmc1 = "/mmc@c8000000";
 	};
 
+        bootstd {
+                bootph-verify;
+                compatible = "u-boot,boot-std";
+
+                filename-prefixes = "/", "/boot/";
+                bootdev-order = "mmc0", "mmc1";
+
+                extlinux {
+                        compatible = "u-boot,extlinux";
+                };
+
+                efi {
+                        compatible = "u-boot,distro-efi";
+                };
+
+                theme {
+                        font-size = <32>;
+                        menu-inset = <3>;
+                        menuitem-gap-y = <1>;
+                       menu-title-margin-x = <20>;
+                        white-on-black;
+                };
+
+                cedit-theme {
+                        font-size = <30>;
+                        menu-inset = <3>;
+                        menuitem-gap-y = <1>;
+                       menu-title-margin-x = <20>;
+                       white-on-black;
+                };
+       };
+        cedit: cedit {
+        };
 	memory {
 		reg = <0x00000000 0x20000000>;
 	};
@@ -459,6 +492,7 @@
 
 	usb@c5000000 {
 		status = "okay";
+		dr_mode = "otg";
 	};
 
 	usb-phy@c5000000 {

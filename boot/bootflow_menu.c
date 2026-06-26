@@ -20,6 +20,14 @@
 #include <watchdog.h>
 #include <linux/delay.h>
 #include "bootflow_internal.h"
+#if !defined(CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT) || (CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT == 0)
+#undef CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT
+#define CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT 1366
+#endif
+#if !defined(CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH) || (CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH == 0)
+#undef CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH
+#define CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH 768
+#endif
 
 /**
  * struct menu_priv - information about the menu
@@ -57,7 +65,7 @@ int bootflow_menu_new(struct expo **expp)
 	ret = scene_box(scn, "box", OBJ_BOX, 2, NULL);
 	if (ret < 0)
 		return log_msg_ret("bmb", ret);
-	ret |= scene_obj_set_bbox(scn, OBJ_BOX, 30, 90, 1366 - 30, 720);
+	ret |= scene_obj_set_bbox(scn, OBJ_BOX, 30, 90, CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH - 30, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 30);
 
 	ret = scene_menu(scn, "main", OBJ_MENU, &menu);
 	ret |= scene_obj_set_pos(scn, OBJ_MENU, MARGIN_LEFT, 100);
@@ -70,7 +78,7 @@ int bootflow_menu_new(struct expo **expp)
 	logo = video_get_u_boot_logo();
 	if (logo) {
 		ret |= scene_img(scn, "ulogo", OBJ_U_BOOT_LOGO, logo, NULL);
-		ret |= scene_obj_set_pos(scn, OBJ_U_BOOT_LOGO, 1165, 100);
+		ret |= scene_obj_set_pos(scn, OBJ_U_BOOT_LOGO, CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH - 201, 100);
 	}
 
 	ret |= scene_txt_str(scn, "prompt1a", OBJ_PROMPT1A, STR_PROMPT1A,
@@ -86,14 +94,14 @@ int bootflow_menu_new(struct expo **expp)
 	ret |= scene_txt_str(scn, "autoboot", OBJ_AUTOBOOT, STR_AUTOBOOT,
 	     "The highlighted entry will be executed automatically in %ds.",
 	     NULL);
-	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT1A, 0, 590,
+	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT1A, 0, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 160,
 				  SCENEOB_DISPLAY_MAX, 30);
-	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT1B, 0, 620,
+	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT1B, 0, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 130,
 				  SCENEOB_DISPLAY_MAX, 30);
-	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT2, 100, 650,
-				  1366 - 100, 700);
-	ret |= scene_obj_set_bbox(scn, OBJ_AUTOBOOT, 0, 720,
-				  SCENEOB_DISPLAY_MAX, 750);
+	ret |= scene_obj_set_bbox(scn, OBJ_PROMPT2, 100, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 100,
+				  CONFIG_BOOTFLOW_MENU_SCREEN_WIDTH - 100, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 50);
+	ret |= scene_obj_set_bbox(scn, OBJ_AUTOBOOT, 0, CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT - 30,
+				  SCENEOB_DISPLAY_MAX,  CONFIG_BOOTFLOW_MENU_SCREEN_HEIGHT);
 	ret |= scene_obj_set_halign(scn, OBJ_PROMPT1A, SCENEOA_CENTRE);
 	ret |= scene_obj_set_halign(scn, OBJ_PROMPT1B, SCENEOA_CENTRE);
 	ret |= scene_obj_set_halign(scn, OBJ_PROMPT2, SCENEOA_CENTRE);
