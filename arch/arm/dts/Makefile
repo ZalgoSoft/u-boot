@@ -45,12 +45,6 @@ dtb-$(CONFIG_MACH_S900) += \
 dtb-$(CONFIG_MACH_S700) += \
 	s700-cubieboard7.dtb
 
-dtb-$(CONFIG_ROCKCHIP_RK3128) += \
-	rk3128-evb.dtb
-
-dtb-$(CONFIG_ROCKCHIP_RK322X) += \
-	rk3229-evb.dtb
-
 dtb-$(CONFIG_ROCKCHIP_RK3368) += \
 	rk3368-sheep.dtb \
 	rk3368-geekbox.dtb \
@@ -898,6 +892,9 @@ dtb-$(CONFIG_ARCH_IMXRT) += imxrt1020-evk.dtb \
 dtb-$(CONFIG_RZA1) += \
 	r7s72100-genmai.dtb \
 	r7s72100-gr-peach.dtb
+
+dtb-$(CONFIG_RCAR_GEN3) += \
+	r8a779md-geist.dtb
 
 dtb-$(CONFIG_RCAR_GEN5) += \
 	r8a78000-ironhide-cm33.dtb
